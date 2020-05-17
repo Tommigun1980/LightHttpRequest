@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Tommi Kiviniemi</Authors>
+    <Description>DESCRIPTION HERE</Description>
+    <Copyright>Copyright © 2020</Copyright>
+    <Owners>Tommi Kiviniemi</Owners>
+    <Summary>SUMMARY HERE</Summary>
+    <PackageTags>Tags, Here</PackageTags>
+    <Title>LightHttpRequest</Title>
+    <PackageId>LightHttpRequest</PackageId>
+    <PackageProjectUrl>https://github.com/Tommigun1980/LightHttpRequest</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Tommigun1980/LightHttpRequest/blob/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.5-dev.8">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="LightHttpRequest.cs">
+      <IncludeInPackage>true</IncludeInPackage>
+    </Compile>
+  </ItemGroup>
+</Project>
