@@ -34,7 +34,6 @@ public static class LightHttpRequest
     {
         public RequestStatus Status { get; set; }
 
-        // Result is available if Status.Success is true
         public T Value { get; set; }
     }
 
@@ -60,12 +59,13 @@ public static class LightHttpRequest
         string uri = null,
         HttpContent requestContent = null,
         IDictionary<string, string> headers = null,
+        bool onlyParseBodyOnSuccess = true,
         CancellationToken cancellationToken = default(CancellationToken))
     {
         var result = await LightHttpRequest.SendAsyncInternal(client, method, uri, requestContent, headers, cancellationToken);
         using (result.responseMessage)
         {
-            if (!result.status.Success)
+            if (!result.status.Success && onlyParseBodyOnSuccess)
                 return new RequestResult<T>() { Status = result.status };
 
             try
@@ -79,7 +79,8 @@ public static class LightHttpRequest
                 Console.WriteLine($"Error - Object conversion failed for {fullUri}: {e}");
                 ThrowIfNonHttpException(e, fullUri.ToString());
 
-                return new RequestResult<T>() {
+                return new RequestResult<T>()
+                {
                     Status = new RequestStatus() { RequestException = e }
                 };
             }
@@ -93,17 +94,18 @@ public static class LightHttpRequest
         string uri = null,
         HttpContent requestContent = null,
         IDictionary<string, string> headers = null,
+        bool onlyParseBodyOnSuccess = true,
         CancellationToken cancellationToken = default(CancellationToken))
     {
         var result = await LightHttpRequest.SendAsync((response) =>
         {
             return response.Content.ReadAsStringAsync();
-        }, client, method, uri, requestContent, headers, cancellationToken);
+        }, client, method, uri, requestContent, headers, onlyParseBodyOnSuccess, cancellationToken);
 
         return new RequestResult<T>()
         {
             Status = result.Status,
-            Value = result.Status.Success ? JsonConvert.DeserializeObject<T>(result.Value) : default(T)
+            Value = (result.Status.Success || !onlyParseBodyOnSuccess) ? JsonConvert.DeserializeObject<T>(result.Value) : default(T)
         };
     }
 
@@ -143,16 +145,13 @@ public static class LightHttpRequest
 
             if (!responseMessage.IsSuccessStatusCode)
             {
-                using (responseMessage)
-                {
-                    var serverErrorString = responseMessage.StatusCode != HttpStatusCode.InternalServerError
-                        ? await responseMessage.Content.ReadAsStringAsync() : null;
-                    if (!string.IsNullOrEmpty(serverErrorString))
-                        responseMessage.ReasonPhrase = serverErrorString;
+                var serverErrorString = responseMessage.StatusCode != HttpStatusCode.InternalServerError
+                    ? await responseMessage.Content.ReadAsStringAsync() : null;
+                if (!string.IsNullOrEmpty(serverErrorString))
+                    responseMessage.ReasonPhrase = serverErrorString;
 
-                    Console.WriteLine($"Call to '{request.RequestUri}' failed with status code {responseMessage.StatusCode}. Reason: '{responseMessage.ReasonPhrase}'");
-                    return (null, new RequestStatus() { StatusCode = responseMessage.StatusCode, ReasonPhrase = serverErrorString });
-                }
+                Console.WriteLine($"Call to '{request.RequestUri}' failed with status code {responseMessage.StatusCode}. Reason: '{responseMessage.ReasonPhrase}'");
+                return (responseMessage, new RequestStatus() { StatusCode = responseMessage.StatusCode, ReasonPhrase = responseMessage.ReasonPhrase });
             }
 
             return (responseMessage, new RequestStatus() { Success = true });
