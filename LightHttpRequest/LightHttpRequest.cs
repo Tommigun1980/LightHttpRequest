@@ -148,7 +148,7 @@ public static class LightHttpRequest
                 var serverErrorString = responseMessage.StatusCode != HttpStatusCode.InternalServerError
                     ? await responseMessage.Content.ReadAsStringAsync() : null;
                 if (!string.IsNullOrEmpty(serverErrorString))
-                    responseMessage.ReasonPhrase = serverErrorString;
+                    responseMessage.ReasonPhrase = serverErrorString.Replace("\n", ". ").Replace("\r", ". ");
 
                 Console.WriteLine($"Call to '{request.RequestUri}' failed with status code {responseMessage.StatusCode}. Reason: '{responseMessage.ReasonPhrase}'");
                 return (responseMessage, new RequestStatus() { StatusCode = responseMessage.StatusCode, ReasonPhrase = responseMessage.ReasonPhrase });
