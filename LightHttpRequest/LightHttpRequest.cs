@@ -154,7 +154,7 @@ public static class LightHttpRequest
                 return (responseMessage, new RequestStatus() { StatusCode = responseMessage.StatusCode, ReasonPhrase = responseMessage.ReasonPhrase });
             }
 
-            return (responseMessage, new RequestStatus() { Success = true });
+            return (responseMessage, new RequestStatus() { StatusCode = responseMessage.StatusCode, Success = true });
         }
     }
 
