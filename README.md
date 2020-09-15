@@ -3,7 +3,7 @@
 
 NuGet package available at https://www.nuget.org/packages/LightHttpRequest/
 
-Caching version (local cache or distributed cache) package available at https://www.nuget.org/packages/CachedLightHttpRequest/
+Caching version (local or distributed cache) package available at https://www.nuget.org/packages/LightHttpRequest.Caching/
 
 ## Intro
 
