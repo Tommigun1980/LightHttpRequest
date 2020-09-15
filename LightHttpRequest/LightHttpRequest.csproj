@@ -5,7 +5,7 @@
     <PackOnBuild>true</PackOnBuild>
     <PackageVersion>1.0.3</PackageVersion>
     <Authors>Tommi Kiviniemi</Authors>
-    <Description>DESCRIPTION HERE</Description>
+    <Description>A wrapper for HttpClient that simplifies things, and uses normal error codes instead of exceptions for network errors</Description>
     <Copyright>Copyright © 2020</Copyright>
     <Owners>Tommi Kiviniemi</Owners>
     <Summary>SUMMARY HERE</Summary>
