@@ -1,7 +1,5 @@
 # LightHttpRequest
-*Quote*
-
-Documentation forthcoming.
+*A wrapper for HttpClient that simplifies things, and uses normal error codes instead of exceptions for network errors*
 
 NuGet package available at https://www.nuget.org/packages/LightHttpRequest/
 
@@ -20,4 +18,4 @@ A cached version, utilizing either [IMemoryCache](https://docs.microsoft.com/en-
 
 ## Usage
 
-TODO
+Documentation forthcoming.
