@@ -3,17 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <Authors>Tommi Kiviniemi</Authors>
-    <Description>Caching version of LightHttpRequest</Description>
+    <Description>Caching versions of LightHttpRequest, supporting local and distributed caches</Description>
     <Copyright>Copyright © 2020</Copyright>
     <Owners>Tommi Kiviniemi</Owners>
-    <Summary>SUMMARY HERE</Summary>
-    <PackageTags>Tags, Here</PackageTags>
-    <Title>CachedLightHttpRequest</Title>
-    <PackageId>CachedLightHttpRequest</PackageId>
-    <PackageProjectUrl>https://github.com/Tommigun1980/CachedLightHttpRequest</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Tommigun1980/CachedLightHttpRequest/blob/master/LICENSE</PackageLicenseUrl>
+    <Summary>Caching versions of LightHttpRequest, supporting local and distributed caches</Summary>
+    <PackageTags>HttpClient, Http, Wrapper, Managed, Web request, Caching, Cached, Distributed, Local</PackageTags>
+    <Title>LightHttpRequest.Caching</Title>
+    <PackageId>LightHttpRequest.Caching</PackageId>
+    <PackageProjectUrl>https://github.com/Tommigun1980/LightHttpRequest</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Tommigun1980/LightHttpRequest/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -24,7 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.8" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>

@@ -3,13 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.0.3</PackageVersion>
+    <PackageVersion>1.0.4</PackageVersion>
     <Authors>Tommi Kiviniemi</Authors>
     <Description>A wrapper for HttpClient that simplifies things, and uses normal error codes instead of exceptions for network errors</Description>
     <Copyright>Copyright © 2020</Copyright>
     <Owners>Tommi Kiviniemi</Owners>
-    <Summary>SUMMARY HERE</Summary>
-    <PackageTags>Tags, Here</PackageTags>
+    <Summary>A wrapper for HttpClient that simplifies things, and uses normal error codes instead of exceptions for network errors</Summary>
+    <PackageTags>HttpClient, Http, Wrapper, Managed, Web request</PackageTags>
     <Title>LightHttpRequest</Title>
     <PackageId>LightHttpRequest</PackageId>
     <PackageProjectUrl>https://github.com/Tommigun1980/LightHttpRequest</PackageProjectUrl>
