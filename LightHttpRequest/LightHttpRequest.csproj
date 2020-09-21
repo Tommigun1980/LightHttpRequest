@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.0.4</PackageVersion>
+    <PackageVersion>1.0.5</PackageVersion>
     <Authors>Tommi Kiviniemi</Authors>
     <Description>A wrapper for HttpClient that simplifies things, and uses normal error codes instead of exceptions for network errors</Description>
     <Copyright>Copyright © 2020</Copyright>

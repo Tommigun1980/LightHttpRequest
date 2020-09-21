@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace LightHttpRequest
@@ -119,10 +120,8 @@ namespace LightHttpRequest
             IDictionary<string, string> headers = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            using (var request = new HttpRequestMessage()
+            using (var request = new HttpRequestMessage(method, uri)
             {
-                Method = method,
-                RequestUri = GetFullUri(client, uri),
                 Content = requestContent
             })
             {
@@ -132,6 +131,7 @@ namespace LightHttpRequest
                         request.Headers.Add(header.Key, header.Value);
                 }
 
+                var fullUri = GetFullUri(client, uri);
                 HttpResponseMessage responseMessage;
                 try
                 {
@@ -139,9 +139,9 @@ namespace LightHttpRequest
                 }
                 catch (Exception e)
                 {
-                    ThrowIfNonHttpException(e, request.RequestUri.ToString());
+                    ThrowIfNonHttpException(e, fullUri.ToString());
 
-                    Console.WriteLine($"Call to '{request.RequestUri}' failed with network exception {e}");
+                    Console.WriteLine($"Call to '{fullUri}' failed with network exception {e}");
                     return (null, new HttpRequestStatus() { RequestException = e, ReasonPhrase = e.Message });
                 }
 
@@ -152,7 +152,7 @@ namespace LightHttpRequest
                     if (!string.IsNullOrEmpty(serverErrorString))
                         responseMessage.ReasonPhrase = serverErrorString.Replace("\n", ". ").Replace("\r", ". ");
 
-                    Console.WriteLine($"Call to '{request.RequestUri}' failed with status code {responseMessage.StatusCode}. Reason: '{responseMessage.ReasonPhrase}'");
+                    Console.WriteLine($"Call to '{fullUri}' failed with status code {responseMessage.StatusCode}. Reason: '{responseMessage.ReasonPhrase}'");
                     return (responseMessage, new HttpRequestStatus() { StatusCode = responseMessage.StatusCode, ReasonPhrase = responseMessage.ReasonPhrase });
                 }
 
@@ -181,6 +181,7 @@ namespace LightHttpRequest
             throw e;
         }
 
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public static Uri GetFullUri(HttpClient client, string uri = null)
         {
             return client.BaseAddress != null
